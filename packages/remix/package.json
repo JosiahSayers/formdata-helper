@@ -1,12 +1,13 @@
 {
-  "name": "remix",
-  "version": "0.0.0",
+  "name": "@formdata-helper/remix",
+  "version": "0.0.1",
   "main": "./index.ts",
   "types": "./index.ts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint *.ts*",
-    "build": "tsc"
+    "build": "tsc",
+    "publish": "npm publish --access public --otp=$NPM_OTP"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

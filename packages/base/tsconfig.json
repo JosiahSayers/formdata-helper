@@ -4,6 +4,7 @@
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "module": "ES2020",
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
   }
 }
