@@ -10,10 +10,10 @@ Use your package manager to install either `@formdata-helper/base` or `@formdata
 ```javascript
 import { parseForm } from "@formdata-helper/base"
 
-const formdataInstance = new FormData()
-  .append('single', 'foo')
-  .append('multiple', 'bar')
-  .append('multiple', 'baz');
+const formdataInstance = new FormData();
+formdataInstance.append('single', 'foo');
+formdataInstance.append('multiple', 'bar');
+formdataInstance.append('multiple', 'baz');
 const asObject = parseForm(formdataInstance);
 console.log(asObject);
 // Output: { single: 'foo', multiple: ['bar', 'baz'] }
@@ -46,10 +46,10 @@ type Form = {
   multiple: string[];
 }
 
-const formdataInstance = new FormData()
-  .append('single', 'foo')
-  .append('multiple', 'bar')
-  .append('multiple', 'baz');
+const formdataInstance = new FormData();
+formdataInstance.append('single', 'foo');
+formdataInstance.append('multiple', 'bar');
+formdataInstance.append('multiple', 'baz');
 const asObject = parseForm<Form>(formdataInstance);
 ```
 It may be helpful to use typescript helpers alter the properties to nullable until you validate the fields were filled out correctly.

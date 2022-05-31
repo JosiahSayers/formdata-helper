@@ -1,0 +1,25 @@
+name: CI Checks
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Setup - Checkout
+      uses: actions/checkout@v1
+
+      - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Unit Tests
+      run: npm run test
