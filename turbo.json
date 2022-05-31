@@ -9,10 +9,6 @@
     },
     "test": {
       "outputs": []
-    },
-    "publish": {
-      "dependsOn": ["build"],
-      "outputs": []
     }
   }
 }
