@@ -35,14 +35,14 @@ jobs:
 
     - name: Deploy Base Package
       uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: ./packages/base/package.json
-          access: public
+      with:
+        token: ${{ secrets.NPM_TOKEN }}
+        package: ./packages/base/package.json
+        access: public
 
     - name: Deploy Remix Package
       uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: ./packages/remix/package.json
-          access: public
+      with:
+        token: ${{ secrets.NPM_TOKEN }}
+        package: ./packages/remix/package.json
+        access: public
