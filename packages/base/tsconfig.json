@@ -1,9 +1,8 @@
 {
   "extends": "tsconfig/base.json",
-  "include": ["**/*.ts"],
-  "exclude": ["dist", "build", "node_modules"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "build", "node_modules", "src/**/*.test.ts"],
   "compilerOptions": {
-    "module": "ES2020",
     "outDir": "dist",
     "lib": ["DOM", "DOM.Iterable", "ESNext"]
   }

@@ -7,6 +7,9 @@
     "lint": {
       "outputs": []
     },
+    "test": {
+      "outputs": []
+    },
     "publish": {
       "dependsOn": ["build"],
       "outputs": []

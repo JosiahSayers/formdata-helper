@@ -1,77 +1,55 @@
-# Turborepo starter with npm
+# @formdata-helper
 
-This is an official starter turborepo.
+Easy functions for converting formdata instances to an object.
 
-## What's inside?
+## Usage
+Use your package manager to install either `@formdata-helper/base` or `@formdata-helper/remix`. The base library can be used in browser environments and is what powers all other libraries. The Remix library can be used in a [remix](https://remix.run) app.
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+### @formdata-helper/base
 
-### Apps and Packages
+```javascript
+import { parseForm } from "@formdata-helper/base"
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-## Setup
-
-This repository is used in the `npx create-turbo@latest` command, and selected when choosing which package manager you wish to use with your monorepo (npm).
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-npm run build
+const formdataInstance = new FormData()
+  .append('single', 'foo')
+  .append('multiple', 'bar')
+  .append('multiple', 'baz');
+const asObject = parseForm(formdataInstance);
+console.log(asObject);
+// Output: { single: 'foo', multiple: ['bar', 'baz'] }
 ```
 
-### Develop
+### @formdata-helper/remix
 
-To develop all apps and packages, run the following command:
+```typescript
+import { parseForm } from "@formdata-helper/remix"
 
-```
-cd my-turborepo
-npm run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching (Beta) you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+export const action: ActionFunction = async ({ request }) => {
+  // Form has 3 inputs
+  // <input name="single" value="foo">
+  // <input name="multiple" value="bar">
+  // <input name="multiple" value="baz">
+  const asObject = await parseForm(request);
+  console.log(asObject);
+  // Output: { single: 'foo', multiple: ['bar', 'baz'] }
+}
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Typescript
+@formdata-helper fully supports typescript. All functions are shipped with type definitions. You can also define the type of form you are parsing.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+```typescript
+import { parseForm } from "@formdata-helper/base"
 
+type Form = {
+  single: string;
+  multiple: string[];
+}
+
+const formdataInstance = new FormData()
+  .append('single', 'foo')
+  .append('multiple', 'bar')
+  .append('multiple', 'baz');
+const asObject = parseForm<Form>(formdataInstance);
 ```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+It may be helpful to use typescript helpers alter the properties to nullable until you validate the fields were filled out correctly.
