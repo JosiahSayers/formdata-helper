@@ -1,17 +1,22 @@
 {
-  "name": "base",
-  "version": "0.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "name": "@formdata-helper/base",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.ts*",
-    "build": "tsc"
+    "lint": "eslint src/**/*.ts*",
+    "test": "jest",
+    "build": "tsc",
+    "publish": "npm publish --access public --otp=$NPM_OTP"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.3",
     "tsconfig": "*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.7.2"
   }
 }

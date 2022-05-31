@@ -1,0 +1,35 @@
+name: Deploy to NPM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      TURBO_TEAM: ${{ secrets.VERCEL_TEAM }}
+      TURBO_REMOTE_ONLY: true
+
+    steps:
+    - name: Setup - Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup - Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Publish
+      run: npm run publish
