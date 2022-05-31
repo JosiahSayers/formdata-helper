@@ -4,14 +4,17 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  deploy_base:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
     runs-on: ubuntu-latest
     timeout-minutes: 2
 
     env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       TURBO_TEAM: ${{ secrets.VERCEL_TEAM }}
       TURBO_REMOTE_ONLY: true
@@ -31,33 +34,28 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Publish Base
-      run: cd packages/base && npm publish
+  deploy_base:
+    name: Deploy Base Package
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./packages/base/package.json
+          access: public
 
   deploy_remix:
+    name: Deploy Remix Package
+    needs: setup
     runs-on: ubuntu-latest
     timeout-minutes: 2
 
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      TURBO_TEAM: ${{ secrets.VERCEL_TEAM }}
-      TURBO_REMOTE_ONLY: true
-
     steps:
-    - name: Setup - Checkout
-      uses: actions/checkout@v1
-
-    - name: Setup - Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-
-    - name: Install Dependencies
-      run: npm ci
-
-    - name: Build
-      run: npm run build
-
-    - name: Publish Remix
-      run: cd packages/remix && npm publish
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./packages/remix/package.json
+          access: public
