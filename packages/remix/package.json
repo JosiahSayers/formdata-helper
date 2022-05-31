@@ -21,6 +21,6 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@formdata-helper/base": "^0.0.3"
+    "@formdata-helper/base": "^1.0.0"
   }
 }
