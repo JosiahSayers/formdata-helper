@@ -8,8 +8,8 @@ on:
     branches: [ main ]
 
 jobs:
-  setup:
-    name: Setup
+  publish:
+    name: Publish Packages to NPM
     runs-on: ubuntu-latest
     timeout-minutes: 2
 
@@ -33,27 +33,15 @@ jobs:
     - name: Build
       run: npm run build
 
-  deploy_base:
-    name: Deploy Base Package
-    needs: setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-
-    steps:
-      - uses: JS-DevTools/npm-publish@v1
+    - name: Deploy Base Package
+      uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./packages/base/package.json
           access: public
 
-  deploy_remix:
-    name: Deploy Remix Package
-    needs: setup
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-
-    steps:
-      - uses: JS-DevTools/npm-publish@v1
+    - name: Deploy Remix Package
+      uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./packages/remix/package.json
