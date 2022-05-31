@@ -7,8 +7,7 @@
   "scripts": {
     "lint": "eslint src/**/*.ts*",
     "test": "jest",
-    "build": "tsc",
-    "publish": "npm publish --access public --otp=$NPM_OTP"
+    "build": "tsc"
   },
   "devDependencies": {
     "@remix-run/node": "latest",
