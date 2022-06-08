@@ -12,6 +12,11 @@
   "bugs": {
     "url": "https://github.com/JosiahSayers/formdata-helper/issues"
   },
+  "keywords": [
+    "formdata",
+    "remix",
+    "remix.run"
+  ],
   "scripts": {
     "lint": "eslint src/**/*.ts",
     "test": "jest",
