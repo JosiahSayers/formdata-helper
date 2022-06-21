@@ -1,4 +1,4 @@
-import { parseForm } from "./parse";
+import { parseForm } from ".";
 
 describe('parseForm', () => {
   const testForm = new FormData();
